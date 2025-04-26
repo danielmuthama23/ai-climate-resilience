@@ -1,0 +1,54 @@
+# Path configurations
+data_paths:
+  raw_data: "./data/raw"
+  processed_data: "./data/processed"
+  synthetic_data: "./data/synthetic"
+  model_checkpoints: "./models/trained_models"
+  edge_models: "./models/tflite_models"
+
+# Model architecture
+model:
+  use_resnet: true
+  window_size: 10
+  spatial:
+    resnet_weights: "imagenet"
+    cnn_filters: [32, 64]
+  temporal:
+    lstm_units: [64, 32]
+  fusion:
+    dense_units: 128
+
+# Training parameters
+training:
+  epochs: 100
+  batch_size: 32
+  validation_split: 0.2
+  early_stopping_patience: 5
+  learning_rate: 0.001
+
+# GAN configuration
+gan:
+  latent_dim: 100
+  output_dim: 2
+  epochs: 2000
+  batch_size: 64
+  learning_rate: 0.0002
+
+# API settings
+api:
+  host: "0.0.0.0"
+  port: 8000
+  max_request_size: "2MB"
+  enable_docs: true
+
+# Edge deployment
+edge:
+  quantize: true
+  target_device: "raspberry_pi"
+  optimization: ["DEFAULT", "OPTIMIZE_FOR_SIZE"]
+
+# Ethical considerations
+ethics:
+  bias_monitoring_interval: 30  # days
+  required_fairness_threshold: 0.85
+  regions_of_focus: ["Sahel", "Horn_of_Africa", "Congo_Basin"]
